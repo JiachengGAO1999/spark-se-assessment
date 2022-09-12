@@ -1,2 +1,2 @@
-web: gunicorn project.server.auth._init_:app
+web: gunicorn project.server:app
 heroku ps:scale web=1
