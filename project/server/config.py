@@ -4,7 +4,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 postgres_local_base = os.environ.get('DATABASE_URL', '').replace(
     'postgres://', 'postgresql://') or \
                           'sqlite:///' + os.path.join(basedir, 'diagnostic.db')
-database_name = 'diagnostic'
+# database_name = 'diagnostic'
 
 
 class BaseConfig:
@@ -20,7 +20,7 @@ class DevelopmentConfig(BaseConfig):
     """Development configuration."""
     DEBUG = True
     BCRYPT_LOG_ROUNDS = 4
-    SQLALCHEMY_DATABASE_URI = postgres_local_base + database_name
+    SQLALCHEMY_DATABASE_URI = postgres_local_base
 
 
 class TestingConfig(BaseConfig):
@@ -28,7 +28,7 @@ class TestingConfig(BaseConfig):
     DEBUG = True
     TESTING = True
     BCRYPT_LOG_ROUNDS = 4
-    SQLALCHEMY_DATABASE_URI = postgres_local_base + database_name + '_test.db'
+    SQLALCHEMY_DATABASE_URI = postgres_local_base + '_test.db'
     PRESERVE_CONTEXT_ON_EXCEPTION = False
 
 
