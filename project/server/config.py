@@ -3,7 +3,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 # postgres_local_base = 'sqlite:///'
 postgres_local_base = os.environ.get('DATABASE_URL', '').replace(
     'postgres://', 'postgresql://') or \
-                          'sqlite:///'
+                          'sqlite:///' + os.path.join(basedir, 'diagnostic.db')
 database_name = 'diagnostic'
 
 
