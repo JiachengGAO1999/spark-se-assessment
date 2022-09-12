@@ -10,7 +10,7 @@ class BaseConfig:
     DEBUG = False
     BCRYPT_LOG_ROUNDS = 13
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
+    # LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
 
 
 class DevelopmentConfig(BaseConfig):
