@@ -6,6 +6,23 @@ from project.server.models import User
 
 auth_blueprint = Blueprint('auth', __name__)
 
+class User_indexAPI(MethodView):
+    def get(self):
+        users = User.query.all()
+        result = []
+        for user in users:
+            jsonUser = {
+                'id': user.id,
+                'admin': user.admin,
+                'email': user.email,
+                'registered_on': user.registered_on
+            }
+            # print(jsonify(jsonUser))
+            result.append(jsonUser)
+        return make_response(str(result))
+
+
+
 class RegisterAPI(MethodView):
     """
     User Registration Resource
@@ -34,11 +51,13 @@ class RegisterAPI(MethodView):
                 db.session.add(user)
                 db.session.commit()
                 # generate the auth token
+
                 auth_token = user.encode_auth_token(user.id)
+
                 responseObject = {
                     'status': 'success',
                     'message': 'Successfully registered.',
-                    'auth_token': auth_token.decode()
+                    'auth_token': user.decode_auth_token(auth_token)
                 }
                 return make_response(jsonify(responseObject)), 201
             except Exception as e:
@@ -63,4 +82,12 @@ auth_blueprint.add_url_rule(
     '/auth/register',
     view_func=registration_view,
     methods=['POST', 'GET']
+)
+
+index_view = User_indexAPI.as_view('index_api')
+
+auth_blueprint.add_url_rule(
+    '/users/index',
+    view_func=index_view,
+    methods=['GET']
 )
