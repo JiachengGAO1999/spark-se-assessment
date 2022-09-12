@@ -1,6 +1,9 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
-postgres_local_base = 'sqlite:///'
+# postgres_local_base = 'sqlite:///'
+postgres_local_base = os.environ.get('DATABASE_URL', '').replace(
+    'postgres://', 'postgresql://') or \
+                          'sqlite:///'
 database_name = 'diagnostic'
 
 
