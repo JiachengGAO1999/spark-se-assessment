@@ -52,7 +52,16 @@ class RegisterAPI(MethodView):
                 db.session.commit()
                 # generate the auth token
 
+                print("user.id: ")
+                print(user.id)
+                print("\n")
                 auth_token = user.encode_auth_token(user.id)
+                print("auth_token: ")
+                print(auth_token)
+                print("\n")
+                print("decode: ")
+                print(user.decode_auth_token(auth_token))
+                print("\n")
 
                 responseObject = {
                     'status': 'success',
